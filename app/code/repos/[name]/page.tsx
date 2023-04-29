@@ -1,6 +1,7 @@
 import Repo from '@/app/components/Repo';
 import RepoDirs from '@/app/components/RepoDirs';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 interface propTypes {
   params: { name: string };
@@ -12,10 +13,14 @@ const RepoPage = ({ params: { name } }: propTypes) => {
       <Link href='/code/repos' className='btn btn-back'>
         Back To Repositories
       </Link>
-      {/* @ts-expect-error Server Component */}
-      <Repo name={name} />
-      {/* @ts-expect-error Server Component */}
-      <RepoDirs />
+      <Suspense fallback={<div>Loading repo...</div>}>
+        {/* @ts-expect-error Server Component */}
+        <Repo name={name} />
+      </Suspense>
+      <Suspense fallback={<div>Loading directories...</div>}>
+        {/* @ts-expect-error Server Component */}
+        <RepoDirs name={name} />
+      </Suspense>
     </div>
   );
 };
