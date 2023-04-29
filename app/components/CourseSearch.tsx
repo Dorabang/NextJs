@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const CourseSearch = () => {
   const [query, setQuery] = useState<string>('');
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(query);
   };
