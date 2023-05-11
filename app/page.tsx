@@ -2,10 +2,11 @@
 import { useState, useEffect } from 'react';
 import LoadingPage from './loading';
 import Courses from './components/Courses';
+import CourseSearch from './components/CourseSearch';
 
 const HomePage = () => {
-  const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [courses, setCourses] = useState<[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -25,7 +26,7 @@ const HomePage = () => {
   return (
     <>
       <h1>Welcome To Traversy Media</h1>
-      {/* @ts-expect-error Server Component */}
+      <CourseSearch getSearchResults={(results) => setCourses(results)} />
       <Courses courses={courses} />
     </>
   );

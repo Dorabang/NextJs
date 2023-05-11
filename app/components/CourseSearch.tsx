@@ -1,17 +1,23 @@
 'use client';
 import { useState } from 'react';
 
-const CourseSearch = () => {
+const CourseSearch = ({ getSearchResults }) => {
   const [query, setQuery] = useState<string>('');
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(query);
+    /* console.log(query); */
+
+    const res = await fetch(`/api/courses/search?query=${query}`);
+    const courses = await res.json();
+    getSearchResults(courses);
   };
+
   return (
-    <form onSubmit={handleSubmit} className='serch-form'>
+    <form onSubmit={handleSubmit} className='search-form'>
       <input
         type='text'
-        className='serch-input'
+        className='search-input'
         placeholder='Search Courses...'
         value={query}
         onChange={(e) => setQuery(e.target.value)}
